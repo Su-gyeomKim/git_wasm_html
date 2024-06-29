@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>WebAssembly Example</title>
-</head>
-<body>
-    <h1>Hello WebAssembly</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>링크 주소 표시기</title>
     <script>
-        fetch('example.wasm').then(response =>
-            response.arrayBuffer()
-        ).then(bytes =>
-            WebAssembly.instantiate(bytes)
-        ).then(results => {
-            console.log(results.instance.exports);
-        }).catch(console.error);
+        function displayLink() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const link = urlParams.get('link');
+            if (link) {
+                document.getElementById('linkAddress').textContent = link;
+                document.getElementById('linkAddress').href = link;
+            } else {
+                document.getElementById('linkAddress').textContent = '링크가 제공되지 않았습니다.';
+            }
+        }
     </script>
+</head>
+<body onload="displayLink()">
+    <h1>링크 주소:</h1>
+    <a id="linkAddress" href="#" target="_blank"></a>
 </body>
 </html>
